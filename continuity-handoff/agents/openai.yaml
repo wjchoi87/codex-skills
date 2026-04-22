@@ -1,0 +1,4 @@
+interface:
+  display_name: "Continuity Handoff"
+  short_description: "Preserve state across compaction and resume"
+  default_prompt: "Use $continuity-handoff to preserve the current session state, task context, and next verified step so this work can resume safely later."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Runner"
+  short_description: "Manage persistent runs, sessions, and logs"
+  default_prompt: "Use $runner to launch, reconnect to, monitor, and safely stop this long-running process without losing its original session or logs."

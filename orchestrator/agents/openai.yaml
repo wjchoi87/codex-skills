@@ -1,0 +1,4 @@
+interface:
+  display_name: "Orchestrator"
+  short_description: "Coordinate staged work with blockers and handoffs"
+  default_prompt: "Use $orchestrator to break this work into dependency-aware stages, keep the critical path moving, and manage any background results cleanly."
