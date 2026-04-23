@@ -1,6 +1,6 @@
 # codex-skills
 
-Custom Codex skills for long-running execution, workflow orchestration, and resumable handoffs.
+Custom Codex skills for long-running execution, workflow orchestration, resumable handoffs, and execution proof.
 
 These skills were adapted for Codex from durable agent workflow patterns and were informed in part by [code-yeongyu/oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent).
 
@@ -11,6 +11,7 @@ These skills were adapted for Codex from durable agent workflow patterns and wer
 - `runner`
 - `orchestrator`
 - `continuity-handoff`
+- `execution-proof`
 
 ### `runner`
 
@@ -71,6 +72,24 @@ What it emphasizes:
 - reconstructing context from real sources before acting
 - preserving the next actionable step and what must be checked first on resume
 
+### `execution-proof`
+
+Leaves behind file-backed proof that a Codex task really started, stayed alive, progressed through phases, and reached a terminal state.
+
+Use it for:
+
+- tasks where chat output is not enough to build trust
+- long workflows that need externally verifiable completion
+- execution runs that should leave machine-readable and human-readable proof
+- resume-safe work that may require multiple attempts under one logical run
+
+What it emphasizes:
+
+- isolated `run_id` and `attempt_id` tracking
+- heartbeat-based proof of continued liveness
+- machine proof under `.codex/runs/...`
+- human-readable `proof.md` for quick confirmation
+
 ## How They Fit Together
 
 These skills are designed to work as a small operating layer for Codex:
@@ -78,12 +97,14 @@ These skills are designed to work as a small operating layer for Codex:
 - use `orchestrator` to structure the overall workflow
 - use `runner` when one part of that workflow becomes a persistent process
 - use `continuity-handoff` when the workflow or process must survive interruptions and later resume
+- use `execution-proof` when you want the run to leave behind visible proof that it truly progressed and completed
 
 Typical pattern:
 
 1. Start with `orchestrator` to split the work into stages and blockers.
 2. Use `runner` for the server, build, or long-running command that needs durable tracking.
 3. Use `continuity-handoff` to preserve exact state before stopping, summarizing, or resuming later.
+4. Use `execution-proof` when the task should produce machine-readable proof plus a human-readable proof artifact.
 
 ## Design Goals
 
@@ -94,6 +115,7 @@ These skills aim to make Codex workflows more:
 - explicit about state
 - better suited for long-running or multi-step work
 - easier to sync across machines
+- easier to verify from outside the chat transcript
 
 ## Install
 
@@ -105,6 +127,7 @@ Example:
 ln -s ~/src/codex-skills/runner ~/.codex/skills/runner
 ln -s ~/src/codex-skills/orchestrator ~/.codex/skills/orchestrator
 ln -s ~/src/codex-skills/continuity-handoff ~/.codex/skills/continuity-handoff
+ln -s ~/src/codex-skills/execution-proof ~/.codex/skills/execution-proof
 ```
 
 Or run:

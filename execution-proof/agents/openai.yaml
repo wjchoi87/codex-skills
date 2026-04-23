@@ -1,0 +1,4 @@
+interface:
+  display_name: "Execution Proof"
+  short_description: "Prove sustained execution with file-backed state"
+  default_prompt: "Use $execution-proof to leave behind file-backed proof that this task stayed alive, progressed through phases, and reached a verified terminal state."

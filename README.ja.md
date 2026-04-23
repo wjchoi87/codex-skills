@@ -1,6 +1,6 @@
 # codex-skills
 
-長時間実行、ワークフローのオーケストレーション、再開可能なハンドオフのための Codex カスタムスキル集です。
+長時間実行、ワークフローのオーケストレーション、再開可能なハンドオフ、実行証明のための Codex カスタムスキル集です。
 
 これらのスキルは、永続的なエージェントワークフローのパターンを Codex 向けに調整したものであり、一部は [code-yeongyu/oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) を参考にしています。
 
@@ -11,6 +11,7 @@
 - `runner`
 - `orchestrator`
 - `continuity-handoff`
+- `execution-proof`
 
 ### `runner`
 
@@ -71,6 +72,24 @@
 - 行動する前に実際の情報源からコンテキストを復元すること
 - 次のアクションと、再開時に最初に確認すべき項目を残すこと
 
+### `execution-proof`
+
+Codex の作業が本当に開始され、途中で生き続け、phase を進み、最終状態に到達したことをファイルベースで残すスキルです。
+
+次のような場面に向いています。
+
+- チャット出力だけでは信頼が足りない作業
+- 外部から完了を検証したい長いワークフロー
+- 機械可読な証明と人間向けの証明を両方残したい場合
+- 1つの論理 run の下で複数の attempt が発生しうる作業
+
+特に重視する点:
+
+- `run_id` と `attempt_id` の分離
+- heartbeat による継続実行の証明
+- `.codex/runs/...` 配下の machine proof
+- すぐ確認できる `proof.md`
+
 ## 組み合わせ方
 
 これらのスキルは、Codex の上に薄い運用レイヤーを作るように設計されています。
@@ -78,12 +97,14 @@
 - 全体のワークフローを構造化するには `orchestrator`
 - その中の一部が長時間実行プロセスになる場合は `runner`
 - そのワークフローやプロセスを後で再開する必要がある場合は `continuity-handoff`
+- 本当に最後まで動いたことを外部から確認したい場合は `execution-proof`
 
 一般的な流れ:
 
 1. `orchestrator` で作業を段階と blocker に分けます。
 2. サーバー、ビルド、長時間実行コマンドは `runner` で追跡します。
 3. 停止、要約、後日の再開が必要なときは `continuity-handoff` で正確な状態を残します。
+4. 実際の進行と完了を検証可能にしたいときは `execution-proof` で proof artifact を残します。
 
 ## 設計目標
 
@@ -94,6 +115,7 @@
 - 状態を明示的に扱える
 - 長時間実行や多段階の作業に適している
 - 複数マシン間で同期しやすい
+- チャット以外からも完了を検証しやすい
 
 ## インストール
 
@@ -105,6 +127,7 @@
 ln -s ~/src/codex-skills/runner ~/.codex/skills/runner
 ln -s ~/src/codex-skills/orchestrator ~/.codex/skills/orchestrator
 ln -s ~/src/codex-skills/continuity-handoff ~/.codex/skills/continuity-handoff
+ln -s ~/src/codex-skills/execution-proof ~/.codex/skills/execution-proof
 ```
 
 または:
