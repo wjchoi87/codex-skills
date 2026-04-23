@@ -137,3 +137,15 @@ ln -s ~/src/codex-skills/execution-proof ~/.codex/skills/execution-proof
 ```
 
 새 스킬을 인식하려면 Codex를 재시작하세요.
+
+## Plugin 패키징
+
+이 저장소에는 이제 Codex plugin 패키지도 포함되어 있습니다.
+
+- plugin 루트: `plugins/codex-skills`
+- manifest: `plugins/codex-skills/.codex-plugin/plugin.json`
+- 로컬 marketplace metadata: `.agents/plugins/marketplace.json`
+
+이 구조를 사용하면 여러 스킬을 하나의 배포 단위로 묶을 수 있습니다.
+
+다만 이 저장소의 marketplace metadata는 **Codex UI에서 정렬과 설치 가능 상태를 표현하는 repo 범위 메타데이터**에 가깝고, 자동으로 어떤 전역 공개 plugin marketplace에 등록된다는 뜻은 아닙니다.

@@ -137,3 +137,15 @@ ln -s ~/src/codex-skills/execution-proof ~/.codex/skills/execution-proof
 ```
 
 新しいスキルを認識するには Codex を再起動してください。
+
+## Plugin パッケージ化
+
+このリポジトリには Codex plugin パッケージも含まれています。
+
+- plugin ルート: `plugins/codex-skills`
+- manifest: `plugins/codex-skills/.codex-plugin/plugin.json`
+- ローカル marketplace metadata: `.agents/plugins/marketplace.json`
+
+この構成により、複数のスキルを 1 つの配布単位としてまとめられます。
+
+ただし、この repository の marketplace metadata は **Codex UI における並び順や利用可能状態を表す repo スコープのメタデータ**であり、自動的にグローバルな公開 plugin marketplace へ掲載されることを意味するものではありません。

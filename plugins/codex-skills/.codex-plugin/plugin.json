@@ -1,0 +1,40 @@
+{
+  "name": "codex-skills",
+  "version": "1.0.0",
+  "description": "Codex workflow skills for persistent runs, orchestration, resumable handoffs, and execution proof.",
+  "author": {
+    "name": "wjchoi87",
+    "email": "44467118+wjchoi87@users.noreply.github.com",
+    "url": "https://github.com/wjchoi87"
+  },
+  "homepage": "https://github.com/wjchoi87/codex-skills",
+  "repository": "https://github.com/wjchoi87/codex-skills",
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "skills",
+    "workflow",
+    "orchestration",
+    "execution-proof"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Codex Skills",
+    "shortDescription": "Workflow skills for durable Codex work",
+    "longDescription": "A reusable Codex plugin that bundles workflow-oriented skills for persistent execution, orchestration, resumable handoffs, and file-backed execution proof.",
+    "developerName": "wjchoi87",
+    "category": "Productivity",
+    "capabilities": [
+      "Write",
+      "Workflow",
+      "Automation"
+    ],
+    "websiteURL": "https://github.com/wjchoi87/codex-skills",
+    "defaultPrompt": [
+      "Use the bundled workflow skills to manage a long-running coding task.",
+      "Use the execution proof skill to leave behind verifiable proof of task completion.",
+      "Use the orchestration skill to structure a multi-step Codex workflow."
+    ],
+    "brandColor": "#2563EB"
+  }
+}

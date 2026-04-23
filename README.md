@@ -137,3 +137,15 @@ Or run:
 ```
 
 Restart Codex to pick up new skills.
+
+## Plugin Packaging
+
+This repository now also includes a Codex plugin package:
+
+- plugin root: `plugins/codex-skills`
+- manifest: `plugins/codex-skills/.codex-plugin/plugin.json`
+- local marketplace metadata: `.agents/plugins/marketplace.json`
+
+This is useful for installable distribution of the bundled skills as one unit.
+
+The marketplace metadata in this repository is **repo-scoped metadata for Codex UI ordering and availability**, not proof that the plugin is automatically listed in a global public plugin marketplace.
