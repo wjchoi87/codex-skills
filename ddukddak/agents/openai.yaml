@@ -1,0 +1,4 @@
+interface:
+  display_name: "Harness Engineering"
+  short_description: "Run Codex work through context, execution, verification, and recovery loops"
+  default_prompt: "Use $harness-engineering to turn this request into a verified end-to-end engineering loop with explicit context, tool discipline, validation, and recovery."

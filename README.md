@@ -12,6 +12,26 @@ These skills were adapted for Codex from durable agent workflow patterns and wer
 - `orchestrator`
 - `continuity-handoff`
 - `execution-proof`
+- `ddukddak`
+
+### `ddukddak`
+
+Builds a reliable execution harness around Codex work instead of treating coding as isolated edits.
+
+Use it for:
+
+- non-trivial coding tasks that need context gathering, implementation, and verification
+- requests where soft wording still implies action, such as "look into this" or "what is the best way"
+- work that must combine tool discipline, delegation, persistent state, and recovery
+- tasks where completion must be proven by tests, builds, diagnostics, artifacts, or documented blockers
+
+What it emphasizes:
+
+- intent classification before execution
+- concrete context from files, commands, docs, and artifacts
+- routing work into local, background, persistent, delegated, or dependency-gated lanes
+- narrow-to-broad verification
+- failure recovery by changing strategy rather than guessing
 
 ### `runner`
 
@@ -94,6 +114,7 @@ What it emphasizes:
 
 These skills are designed to work as a small operating layer for Codex:
 
+- use `ddukddak` as the top-level execution loop for non-trivial engineering work
 - use `orchestrator` to structure the overall workflow
 - use `runner` when one part of that workflow becomes a persistent process
 - use `continuity-handoff` when the workflow or process must survive interruptions and later resume
@@ -101,10 +122,11 @@ These skills are designed to work as a small operating layer for Codex:
 
 Typical pattern:
 
-1. Start with `orchestrator` to split the work into stages and blockers.
-2. Use `runner` for the server, build, or long-running command that needs durable tracking.
-3. Use `continuity-handoff` to preserve exact state before stopping, summarizing, or resuming later.
-4. Use `execution-proof` when the task should produce machine-readable proof plus a human-readable proof artifact.
+1. Start with `ddukddak` to classify intent, gather context, choose tools, execute, verify, and recover.
+2. Use `orchestrator` when the work splits into stages, blockers, or parallel workstreams.
+3. Use `runner` for the server, build, or long-running command that needs durable tracking.
+4. Use `continuity-handoff` to preserve exact state before stopping, summarizing, or resuming later.
+5. Use `execution-proof` when the task should produce machine-readable proof plus a human-readable proof artifact.
 
 ## Design Goals
 
@@ -128,6 +150,7 @@ ln -s ~/src/codex-skills/runner ~/.codex/skills/runner
 ln -s ~/src/codex-skills/orchestrator ~/.codex/skills/orchestrator
 ln -s ~/src/codex-skills/continuity-handoff ~/.codex/skills/continuity-handoff
 ln -s ~/src/codex-skills/execution-proof ~/.codex/skills/execution-proof
+ln -s ~/src/codex-skills/ddukddak ~/.codex/skills/ddukddak
 ```
 
 Or run:

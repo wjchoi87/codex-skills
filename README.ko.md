@@ -12,6 +12,26 @@
 - `orchestrator`
 - `continuity-handoff`
 - `execution-proof`
+- `ddukddak`
+
+### `ddukddak`
+
+Codex 작업을 단순 편집이 아니라 신뢰 가능한 실행 하네스로 감싸는 스킬입니다.
+
+다음 같은 상황에 적합합니다.
+
+- 컨텍스트 수집, 구현, 검증이 모두 필요한 비단순 코딩 작업
+- "look into this", "best way"처럼 부드러운 표현이지만 실제 액션을 요구하는 요청
+- tool discipline, delegation, persistent state, recovery를 함께 써야 하는 작업
+- 테스트, 빌드, diagnostics, artifact, 또는 명확한 blocker로 완료를 증명해야 하는 작업
+
+핵심적으로 강조하는 점:
+
+- 실행 전 intent classification
+- 파일, 명령어, 문서, artifact에서 얻은 구체적인 컨텍스트
+- local, background, persistent, delegated, dependency-gated lane으로 작업 라우팅
+- 좁은 검증에서 넓은 검증으로 이어지는 verification ladder
+- 추측이 아니라 전략 변경을 통한 failure recovery
 
 ### `runner`
 
@@ -94,6 +114,7 @@ Codex 작업이 실제로 시작되고, 살아 있었고, phase를 따라 진행
 
 이 스킬들은 Codex 위에 얇은 운영 레이어처럼 함께 동작하도록 설계되어 있습니다.
 
+- 비단순 엔지니어링 작업의 상위 실행 루프에는 `ddukddak`
 - 전체 워크플로 구조화에는 `orchestrator`
 - 그중 하나가 장기 실행 프로세스가 되면 `runner`
 - 그 워크플로 또는 프로세스를 나중에 다시 이어야 하면 `continuity-handoff`
@@ -101,10 +122,11 @@ Codex 작업이 실제로 시작되고, 살아 있었고, phase를 따라 진행
 
 보통은 이런 흐름으로 쓰면 됩니다.
 
-1. `orchestrator`로 작업을 단계와 blocker로 나눕니다.
-2. 서버, 빌드, 장기 실행 명령은 `runner`로 추적합니다.
-3. 멈추거나 요약하거나 나중에 재개해야 할 때 `continuity-handoff`로 정확한 상태를 남깁니다.
-4. 실제 진행과 완료를 신뢰할 수 있게 남기려면 `execution-proof`로 proof artifact를 생성합니다.
+1. `ddukddak`으로 intent를 분류하고, 컨텍스트를 모으고, 도구를 고르고, 실행/검증/복구합니다.
+2. 작업이 단계, blocker, 병렬 workstream으로 나뉘면 `orchestrator`로 구조화합니다.
+3. 서버, 빌드, 장기 실행 명령은 `runner`로 추적합니다.
+4. 멈추거나 요약하거나 나중에 재개해야 할 때 `continuity-handoff`로 정확한 상태를 남깁니다.
+5. 실제 진행과 완료를 신뢰할 수 있게 남기려면 `execution-proof`로 proof artifact를 생성합니다.
 
 ## 설계 목표
 
@@ -128,6 +150,7 @@ ln -s ~/src/codex-skills/runner ~/.codex/skills/runner
 ln -s ~/src/codex-skills/orchestrator ~/.codex/skills/orchestrator
 ln -s ~/src/codex-skills/continuity-handoff ~/.codex/skills/continuity-handoff
 ln -s ~/src/codex-skills/execution-proof ~/.codex/skills/execution-proof
+ln -s ~/src/codex-skills/ddukddak ~/.codex/skills/ddukddak
 ```
 
 또는:

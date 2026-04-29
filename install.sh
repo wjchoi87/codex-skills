@@ -5,7 +5,7 @@ set -euo pipefail
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
 CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 SKILLS_DIR="$CODEX_HOME/skills"
-SKILLS=("runner" "orchestrator" "continuity-handoff")
+SKILLS=("runner" "orchestrator" "continuity-handoff" "execution-proof" "ddukddak")
 
 mkdir -p "$SKILLS_DIR"
 
@@ -26,9 +26,9 @@ for skill in "${SKILLS[@]}"; do
     fi
     rm "$dest"
   elif [[ -e "$dest" ]]; then
-    echo "Destination already exists and is not a symlink: $dest" >&2
-    echo "Move or remove it first, then run this script again." >&2
-    exit 1
+    backup="${dest}.backup.$(date +%Y%m%d_%H%M%S)"
+    echo "Backing up: $dest -> $backup"
+    mv "$dest" "$backup"
   fi
 
   ln -s "$src" "$dest"
